@@ -8,6 +8,8 @@ public enum TempSkillRarity
 
 public class Gacha : MonoBehaviour
 {
+    [SerializeField] private int _pullCost = 10;
+
     public struct TempSkill
     {
         public int Id;
@@ -21,6 +23,16 @@ public class Gacha : MonoBehaviour
         SkillDropRates[TempSkillRarity.Rare] = 30;
         SkillDropRates[TempSkillRarity.Epic] = 10;
         SkillDropRates[TempSkillRarity.Legendary] = 1;
+    }
+
+    private void Start()
+    {
+        Pull();
+    }
+
+    public void Pull()
+    {
+        if (!GameManager.Instance.HasEnoughCurrency(_pullCost)) return;
         GetRarity();
     }
 
