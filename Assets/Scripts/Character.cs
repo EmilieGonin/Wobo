@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using UnityEditor;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -15,18 +13,18 @@ public class Character : MonoBehaviour
     [SerializeField] private int m_karma { get; set; }
     [SerializeField] private Class m_class { get; set; }
 
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
     public void InitCharacterStats(string name, int pv, int magicPower, int physicPower, int speed, int pm, int karma, Class characterClass)
     {
         m_name = name;
@@ -37,5 +35,16 @@ public class Character : MonoBehaviour
         m_pm = pm;
         m_karma = karma;
         m_class = characterClass;
+    }
+
+    public int GetKarma()
+    {
+        return m_karma;
+    }
+
+    public void AdjustKarma(int amount)
+    {
+        m_karma += amount;
+        Debug.Log("Karma ajusté à : " + m_karma);
     }
 }
