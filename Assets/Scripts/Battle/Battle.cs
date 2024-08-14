@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Battle : MonoBehaviour
@@ -8,11 +9,22 @@ public class Battle : MonoBehaviour
 
     public struct TempEntity { }
 
+    public List<Character> Enemies { get; private set; } = new();
+
     private BattleState _currentState;
 
     private void Awake()
     {
         SetNextPlayingEntity();
+    }
+
+    private void SpawnEntities()
+    {
+        // temp - use missionSO later
+        Enemies.Clear();
+        Enemies.Add(new());
+        Enemies.Add(new());
+        Enemies.Add(new());
     }
 
     private void Update()
