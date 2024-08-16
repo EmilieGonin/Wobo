@@ -13,18 +13,6 @@ public class Character : MonoBehaviour
     [SerializeField] private int m_karma { get; set; }
     [SerializeField] private Class m_class { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void InitCharacterStats(string name, int pv, int magicPower, int physicPower, int speed, int pm, int karma, Class characterClass)
     {
         m_name = name;
@@ -37,14 +25,27 @@ public class Character : MonoBehaviour
         m_class = characterClass;
     }
 
+
+    //Code a optimiser/modifier selon les prochaines modification apporter à la base du script Character
     public int GetKarma()
     {
         return m_karma;
+    }
+
+    public int GetPv()
+    {
+        return m_pv;
     }
 
     public void AdjustKarma(int amount)
     {
         m_karma += amount;
         Debug.Log("Karma ajusté à : " + m_karma);
+    }
+
+    public void AdjustPv(int amount)
+    {
+        m_pv += amount;
+        Debug.Log("Pv ajusté à : " + m_pv);
     }
 }
