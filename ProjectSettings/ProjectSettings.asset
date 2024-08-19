@@ -140,7 +140,10 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 1.0.2
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -6053480287776513605, guid: 4b264e34553f415418788361da32e7ba, type: 2}
+  - {fileID: 11400000, guid: 4e05b39cdf135d24e8de7d73d0aff706, type: 2}
+  - {fileID: 11400000, guid: 343e27854d84c6a4e8929874e1f3888e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -160,7 +163,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Android: com.DefaultCompany.Wobo
   buildNumber:
     Standalone: 0
     VisionOS: 0

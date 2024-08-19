@@ -4,5 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Debug/Alexis.unity
+    guid: f9b98eebde3a2584cb1edba60a8ee390
+  m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: 343e27854d84c6a4e8929874e1f3888e, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 4b264e34553f415418788361da32e7ba,
+      type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000,
+      guid: 4e05b39cdf135d24e8de7d73d0aff706, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: d3c87ad63b04ca94986a12fd20251816, type: 2}
