@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum KarmaSubClass
+{
+    LIGHT, NONE, DARK
+}
 public class Character : MonoBehaviour
 {
     [SerializeField] private string m_name { get; set; }
@@ -11,6 +15,7 @@ public class Character : MonoBehaviour
     [SerializeField] private int m_speed { get; set; }
     [SerializeField] private int m_pm { get; set; }
     [SerializeField] private int m_karma { get; set; }
+    [SerializeField] private KarmaSubClass m_karmaSubClass { get; set; }
     [SerializeField] private Class m_class { get; set; }
 
     public void InitCharacterStats(string name, int pv, int magicPower, int physicPower, int speed, int pm, int karma, Class characterClass)
@@ -40,9 +45,39 @@ public class Character : MonoBehaviour
     public void AdjustKarma(int amount)
     {
         m_karma += amount;
+        if (m_karma >= 50) AddSubClass(true);
+        else if (m_karma <= -50) AddSubClass(false);
         Debug.Log("Karma ajusté à : " + m_karma);
     }
 
+    public void AddSubClass(bool karmaBool)
+    {
+        switch (m_class.getName())
+        {
+            case AllClass.GUERRIER:
+                if (karmaBool) m_class.setSubClass(AllSubClass.PALADIN);
+                else m_class.setSubClass(AllSubClass.BARBARE);
+                break;
+
+            case AllClass.MAGE:
+                if (karmaBool) m_class.setSubClass(AllSubClass.MAGE_BLANC);
+                else m_class.setSubClass(AllSubClass.MAGE_NOIR);
+                break;
+
+            case AllClass.ARCHER:
+                if (karmaBool) m_class.setSubClass(AllSubClass.RODEUR);
+                else m_class.setSubClass(AllSubClass.CHASSEUR);
+                break;
+
+            case AllClass.ROUBLARD:
+                if (karmaBool) m_class.setSubClass(AllSubClass.VOLEUR);
+                else m_class.setSubClass(AllSubClass.ASSASSIN);
+                break;
+
+            default:
+                break;
+        }
+    }
     public void AdjustPv(int amount)
     {
         m_pv += amount;

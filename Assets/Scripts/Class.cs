@@ -7,10 +7,15 @@ public enum AllClass
     GUERRIER, MAGE, ARCHER, ROUBLARD
 }
 
+public enum AllSubClass
+{
+    PALADIN, BARBARE, MAGE_BLANC, MAGE_NOIR, RODEUR, CHASSEUR, VOLEUR, ASSASSIN
+}
+
 public class Class : MonoBehaviour
 {
-    [SerializeField] private string m_className { get; set; }
-    [SerializeField] private string m_subClass { get; set; }
+    [SerializeField] private AllClass m_className { get; set; }
+    [SerializeField] private AllSubClass m_subClass { get; set; }
     [SerializeField] private Skill m_firstSkill { get; set; }
     [SerializeField] private Skill m_secondSkill { get; set; }
     [SerializeField] private Skill m_thirdSkill { get; set; }
@@ -26,5 +31,12 @@ public class Class : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public AllClass getName() { return m_className; }
+
+    public void setSubClass(AllSubClass amount)
+    {
+        m_subClass= amount;
     }
 }
