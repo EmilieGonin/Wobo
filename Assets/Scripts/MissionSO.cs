@@ -18,14 +18,6 @@ public class MissionSO : ScriptableObject
     public MissionState State;
     public int Reward;
 
-    [Button]
-    private void UpdateAssetName()
-    {
-        string id = ID < 10 ? 0 + ID.ToString() : ID.ToString();
-        string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
-        AssetDatabase.RenameAsset(assetPath, $"{id} - {Name}");
-    }
-
     [Button("Debug - Complete Mission")]
     public void Complete()
     {
