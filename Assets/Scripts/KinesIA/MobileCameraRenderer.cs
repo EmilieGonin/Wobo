@@ -1,39 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MobileCameraRenderer : MonoBehaviour
 {
-    WebCamTexture webCam;
     [SerializeField] private RawImage _cameraRenderer;
+    private WebCamTexture webCam;
 
     void Start()
     {
-        // Rechercher les périphériques caméra disponibles
-        WebCamDevice[] devices = WebCamTexture.devices;
-        string frontCameraName = null;
-
-        // Chercher la caméra frontale dans les périphériques
-        foreach (var device in devices)
-        {
-            if (device.isFrontFacing)
-            {
-                frontCameraName = device.name;
-                break;
-            }
-        }
-
-        if (frontCameraName != null)
-        {
-            webCam = new WebCamTexture(frontCameraName);
-        }
-        else
-        {
-            webCam = new WebCamTexture();
-        }
+        string cameraName = GetFrontFacingCameraName();
+        webCam = new WebCamTexture(cameraName);
 
         _cameraRenderer.texture = webCam;
         webCam.Play();
+    }
+
+    private string GetFrontFacingCameraName()
+    {
+        foreach (var device in WebCamTexture.devices)
+        {
+            if (device.isFrontFacing)
+            {
+                return device.name;
+            }
+        }
+        return null;
     }
 }
