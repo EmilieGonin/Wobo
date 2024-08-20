@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Battle : MonoBehaviour
@@ -11,20 +12,18 @@ public class Battle : MonoBehaviour
     [SerializeField] private Transform _battlegroundEnemies;
     [SerializeField] private Transform _battlegroundAllies;
 
-    public TempEntity PlayingEntity {  get; private set; }
-
-    // Add list of allies and ennemies
-
-    public struct TempEntity { }
+    public Character PlayingEntity {  get; private set; }
 
     public List<Character> Enemies { get; private set; } = new();
+    public List<Character> Allies { get; private set; } = new(); // temp - use game manager later
+    public List<Character> TurnOrder { get; private set; } = new();
 
     private BattleState _currentState;
 
     private void Awake()
     {
         SpawnEntities();
-        SetNextPlayingEntity();
+        StartNewTurn();
     }
 
     private void SpawnEntities()
@@ -50,6 +49,7 @@ public class Battle : MonoBehaviour
         sprite.transform.SetParent(isEnemy ? _battlegroundEnemies : _battlegroundAllies);
 
         if (isEnemy) Enemies.Add(sprite.AddComponent<Enemy>());
+        else if (!isEmpty) Allies.Add(sprite.AddComponent<Character>()); // temp
     }
 
     private void Update()
@@ -61,14 +61,31 @@ public class Battle : MonoBehaviour
     {
         _currentState?.OnExit();
         _currentState = state;
+        Debug.Log($"New battle state : {_currentState}");
         _currentState?.OnEnter(this);
     }
 
     public void SetNextPlayingEntity()
     {
         // Check win/lose conditions
-        // Check which entity play
-        PlayingEntity = new TempEntity { };
-        ChangeState(new BSPlayerTurn());
+        // Check which entity play with speed
+
+        if (TurnOrder.Count == 0)
+        {
+            StartNewTurn();
+            return;
+        }
+
+        PlayingEntity = TurnOrder.FirstOrDefault();
+        TurnOrder.Remove(PlayingEntity);
+
+        ChangeState(Allies.Contains(PlayingEntity) ? new BSPlayerTurn() : new BSEnemyTurn());
+    }
+
+    private void StartNewTurn()
+    {
+        TurnOrder.AddRange(Allies);
+        TurnOrder.AddRange(Enemies);
+        SetNextPlayingEntity();
     }
 }

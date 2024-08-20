@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BattleState
 {
     protected Battle _battle;

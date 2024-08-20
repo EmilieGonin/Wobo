@@ -1,4 +1,4 @@
-public class BSEnemyTurn : BSTurn
+public class BSEnemyTurn : BattleState
 {
     public override void OnEnter(Battle battle)
     {
@@ -7,6 +7,6 @@ public class BSEnemyTurn : BSTurn
         // Choose random target
         // Choose attack or skill
         // Deal damage
-        OnExit();
+        _battle.SetNextPlayingEntity();
     }
 }

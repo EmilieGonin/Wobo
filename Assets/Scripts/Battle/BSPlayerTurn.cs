@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BSPlayerTurn : BSTurn
+public class BSPlayerTurn : BattleState
 {
     private Skill _selectedSkill;
 
@@ -21,7 +21,8 @@ public class BSPlayerTurn : BSTurn
         int damage = 5; // temp - get Wobo damage stat
         //if (_selectedSkill == null) damage = _selectedSkill.
         target.DealDamage(damage);
-        //_battle.SetNextPlayingEntity();
         Debug.Log($"Player dealt {damage} damages.");
+
+        _battle.SetNextPlayingEntity();
     }
 }
