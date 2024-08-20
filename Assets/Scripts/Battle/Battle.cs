@@ -32,24 +32,24 @@ public class Battle : MonoBehaviour
         // temp - use missionSO later
         Enemies.Clear();
 
+        for (int i = 0; i < 3; i++) SpawnEntity(i, true);
+
+        // temp - use game manager data later
+        SpawnEntity(0, false, true);
+        SpawnEntity(1, false);
+        SpawnEntity(2, false, true);
+    }
+
+    private void SpawnEntity(int i, bool isEnemy, bool isEmpty = false)
+    {
         float spacing = 2.0f;
 
-        for (int i = 0; i < 3; i++)
-        {
-            Vector3 battlegroundPos = _battlegroundEnemies.position;
-            Vector3 position = battlegroundPos + new Vector3(i * spacing, 0, 0);
-            GameObject sprite = Instantiate(_battleEntityPrefab, position, Quaternion.identity);
-            Enemies.Add(sprite.AddComponent<Enemy>());
-            sprite.transform.SetParent(_battlegroundEnemies);
-        }
+        Vector3 battlegroundPos = isEnemy ? _battlegroundEnemies.position : _battlegroundAllies.position;
+        Vector3 position = battlegroundPos + new Vector3(i * spacing, 0, 0);
+        GameObject sprite = Instantiate(isEmpty ? _battleEntityPrefabEmptySlot : _battleEntityPrefab, position, Quaternion.identity);
+        sprite.transform.SetParent(isEnemy ? _battlegroundEnemies : _battlegroundAllies);
 
-        for (int i = 0; i < 3; i++)
-        {
-            Vector3 battlegroundPos = _battlegroundAllies.position;
-            Vector3 position = battlegroundPos + new Vector3(i * spacing, 0, 0);
-            GameObject sprite = Instantiate(_battleEntityPrefab, position, Quaternion.identity);
-            sprite.transform.SetParent(_battlegroundAllies);
-        }
+        if (isEnemy) Enemies.Add(sprite.AddComponent<Enemy>());
     }
 
     private void Update()

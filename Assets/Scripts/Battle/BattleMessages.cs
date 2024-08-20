@@ -25,7 +25,7 @@ public class BattleMessages : MonoBehaviour
         _messageText.text = "Choose a target !";
     }
 
-    private void Hide()
+    private void Hide(Character target)
     {
         _messageBackground.enabled = false;
         _messageText.text = string.Empty;

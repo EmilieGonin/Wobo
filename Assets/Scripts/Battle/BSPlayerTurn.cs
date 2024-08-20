@@ -1,28 +1,27 @@
+using UnityEngine;
+
 public class BSPlayerTurn : BSTurn
 {
+    private Skill _selectedSkill;
+
     public override void OnEnter(Battle battle)
     {
         base.OnEnter(battle);
-
-        // Subscribe to UI events
-        BattleActions.OnAttackAction += OnAttack;
+        Enemy.OnTargetChoice += OnAttack;
     }
 
     public override void OnExit()
     {
         base.OnExit();
-
-        // Unsubscribe to UI events
-        BattleActions.OnAttackAction -= OnAttack;
+        Enemy.OnTargetChoice -= OnAttack;
     }
 
-    private void OnAttack()
+    private void OnAttack(Character target)
     {
-        //
-    }
-
-    private void OnSkill()
-    {
-        //
+        int damage = 5; // temp - get Wobo damage stat
+        //if (_selectedSkill == null) damage = _selectedSkill.
+        target.DealDamage(damage);
+        //_battle.SetNextPlayingEntity();
+        Debug.Log($"Player dealt {damage} damages.");
     }
 }
