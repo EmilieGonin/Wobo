@@ -8,8 +8,8 @@ public class Battle : MonoBehaviour
     [SerializeField] private GameObject _battleEntityPrefabEmptySlot;
 
     [Header("Dependencies")]
-    [SerializeField] private Transform _battleSlotsEnemies;
-    [SerializeField] private Transform _battleSlotsAllies;
+    [SerializeField] private Transform _battlegroundEnemies;
+    [SerializeField] private Transform _battlegroundAllies;
 
     public TempEntity PlayingEntity {  get; private set; }
 
@@ -32,16 +32,24 @@ public class Battle : MonoBehaviour
         // temp - use missionSO later
         Enemies.Clear();
 
+        float spacing = 2.0f;
+
         for (int i = 0; i < 3; i++)
         {
-            GameObject go = Instantiate(_battleEntityPrefab, _battleSlotsEnemies);
-            Enemies.Add(go.AddComponent<Character>());
+            Vector3 battlegroundPos = _battlegroundEnemies.position;
+            Vector3 position = battlegroundPos + new Vector3(i * spacing, 0, 0);
+            GameObject sprite = Instantiate(_battleEntityPrefab, position, Quaternion.identity);
+            Enemies.Add(sprite.AddComponent<Enemy>());
+            sprite.transform.SetParent(_battlegroundEnemies);
         }
 
-        // temp - use game manager allies later
-        Instantiate(_battleEntityPrefabEmptySlot, _battleSlotsAllies);
-        Instantiate(_battleEntityPrefab, _battleSlotsAllies);
-        Instantiate(_battleEntityPrefabEmptySlot, _battleSlotsAllies);
+        for (int i = 0; i < 3; i++)
+        {
+            Vector3 battlegroundPos = _battlegroundAllies.position;
+            Vector3 position = battlegroundPos + new Vector3(i * spacing, 0, 0);
+            GameObject sprite = Instantiate(_battleEntityPrefab, position, Quaternion.identity);
+            sprite.transform.SetParent(_battlegroundAllies);
+        }
     }
 
     private void Update()
