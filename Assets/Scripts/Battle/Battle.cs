@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class Battle : MonoBehaviour
 {
+    [Header("Prefabs")]
+    [SerializeField] private GameObject _battleEntityPrefab;
+    [SerializeField] private GameObject _battleEntityPrefabEmptySlot;
+
+    [Header("Dependencies")]
+    [SerializeField] private Transform _battleSlotsEnemies;
+    [SerializeField] private Transform _battleSlotsAllies;
+
     public TempEntity PlayingEntity {  get; private set; }
 
     // Add list of allies and ennemies
@@ -15,6 +23,7 @@ public class Battle : MonoBehaviour
 
     private void Awake()
     {
+        SpawnEntities();
         SetNextPlayingEntity();
     }
 
@@ -22,9 +31,17 @@ public class Battle : MonoBehaviour
     {
         // temp - use missionSO later
         Enemies.Clear();
-        Enemies.Add(new());
-        Enemies.Add(new());
-        Enemies.Add(new());
+
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject go = Instantiate(_battleEntityPrefab, _battleSlotsEnemies);
+            Enemies.Add(go.AddComponent<Character>());
+        }
+
+        // temp - use game manager allies later
+        Instantiate(_battleEntityPrefabEmptySlot, _battleSlotsAllies);
+        Instantiate(_battleEntityPrefab, _battleSlotsAllies);
+        Instantiate(_battleEntityPrefabEmptySlot, _battleSlotsAllies);
     }
 
     private void Update()
