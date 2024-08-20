@@ -30,6 +30,11 @@ public class Character : MonoBehaviour
         m_class = characterClass;
     }
 
+    public void DealDamage(int amount)
+    {
+        m_pv -= amount;
+    }
+
 
     //Code a optimiser/modifier selon les prochaines modification apporter à la base du script Character
     public int GetKarma()

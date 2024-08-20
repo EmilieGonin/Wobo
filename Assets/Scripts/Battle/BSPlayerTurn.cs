@@ -1,24 +1,28 @@
-public class BSPlayerTurn : BSTurn
+using UnityEngine;
+
+public class BSPlayerTurn : BattleState
 {
+    private Skill _selectedSkill;
+
     public override void OnEnter(Battle battle)
     {
         base.OnEnter(battle);
-        // Subscribe to UI events
+        Enemy.OnTargetChoice += OnAttack;
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        // Unsubscribe to UI events
+        Enemy.OnTargetChoice -= OnAttack;
     }
 
-    private void OnAttack()
+    private void OnAttack(Character target)
     {
-        //
-    }
+        int damage = 5; // temp - get Wobo damage stat
+        //if (_selectedSkill == null) damage = _selectedSkill.
+        target.DealDamage(damage);
+        Debug.Log($"Player dealt {damage} damages.");
 
-    private void OnSkill()
-    {
-        //
+        _battle.SetNextPlayingEntity();
     }
 }
