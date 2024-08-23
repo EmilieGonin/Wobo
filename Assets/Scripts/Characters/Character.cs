@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum KarmaSubClass
@@ -18,6 +16,18 @@ public class Character : MonoBehaviour
     [SerializeField] private KarmaSubClass m_karmaSubClass { get; set; }
     [SerializeField] private Class m_class { get; set; }
 
+    public bool IsAlive => m_pv > 0;
+
+    private int _tempMaxPV = 50;
+
+    private CharacterHUD _hud;
+
+    public virtual void Awake()
+    {
+        m_pv = 50; //temp
+        _hud = GetComponent<CharacterHUD>();
+    }
+
     public void InitCharacterStats(string name, int pv, int magicPower, int physicPower, int speed, int pm, int karma, Class characterClass)
     {
         m_name = name;
@@ -33,6 +43,7 @@ public class Character : MonoBehaviour
     public void DealDamage(int amount)
     {
         m_pv -= amount;
+        _hud.UpdateHealthbar(_tempMaxPV, m_pv);
     }
 
 
