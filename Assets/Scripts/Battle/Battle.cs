@@ -75,9 +75,14 @@ public class Battle : MonoBehaviour
             return;
         }
 
+        int enemyNumber = Enemies.Count;
+
         foreach (var enemy in Enemies)
         {
             if (enemy.IsAlive) break;
+            enemyNumber--;
+
+            if (enemyNumber > 0) continue;
             ChangeState(new BSWin());
             return;
         }
