@@ -68,6 +68,20 @@ public class Battle : MonoBehaviour
     public void SetNextPlayingEntity()
     {
         // Check win/lose conditions
+        foreach (var ally in Allies)
+        {
+            if (ally.IsAlive) break;
+            ChangeState(new BSLose());
+            return;
+        }
+
+        foreach (var enemy in Enemies)
+        {
+            if (enemy.IsAlive) break;
+            ChangeState(new BSWin());
+            return;
+        }
+
         // Check which entity play with speed
 
         if (TurnOrder.Count == 0)

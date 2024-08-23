@@ -16,6 +16,8 @@ public class Character : MonoBehaviour
     [SerializeField] private KarmaSubClass m_karmaSubClass { get; set; }
     [SerializeField] private Class m_class { get; set; }
 
+    public bool IsAlive => m_pv > 0;
+
     private int _tempMaxPV = 50;
 
     private CharacterHUD _hud;
