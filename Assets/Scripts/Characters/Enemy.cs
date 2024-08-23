@@ -5,8 +5,9 @@ public class Enemy : Character
     public static event Action<Character> OnTargetChoice;
     private bool _canBeTargeted = false;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         BattleActions.OnAttackAction += BattleActions_OnAttackAction;
         OnTargetChoice += Enemy_OnTargetChoice;
     }
